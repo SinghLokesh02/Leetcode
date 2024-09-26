@@ -1,28 +1,20 @@
-class Solution:
-    def minSetSize(self, arr: List[int]) -> int:
-        st = set(arr)
-        if(len(st) == len(arr)):
-            return len(arr)//2
-        
-        size = len(arr)//2
-        mydict = {}
-        for data in st:
-            mydict[data] = arr.count(data)
-        
-        ans = 0
-        values = list(mydict.values())
-        values.sort(reverse = True)
-        print(values)
-        i = 0
-        while(ans <= size):
-            ans += values[i]
-            i += 1
-            if(ans >= size):
-                break
-        
-        print(i)
-        return i
-        
+class Solution {
+public:
+    int minSetSize(vector<int>& arr) {
+        unordered_map<int,int>m;
+        for(auto i : arr)m[i]++;
+        int size = arr.size()/2;
+        int ans = 0,count = 0;
+        vector<int>v;
+        for(auto i : m)v.push_back(i.second);
+        sort(v.begin(),v.end());
+        reverse(v.begin(),v.end());
+        for(auto data : v){
+            ans += data;
+            count++;
+            if(ans >= size)return count;
+        }
             
-            
-        
+        return 0;
+    }
+};
